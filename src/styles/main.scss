@@ -1,0 +1,17 @@
+*{
+    box-sizing: border-box;
+    margin: 0px;
+    padding: 0px;
+}
+
+@import 'variables';
+@import "pages/Home";
+@import 'Aside.scss';
+
+
+
+body{
+   .App{
+    @include flexbox(row,start,start);
+   }
+}
