@@ -1,0 +1,40 @@
+.menuItems{
+    width: 300px;
+    height: 100vh;
+    position: sticky;
+    bottom: 0px;
+    top:0px;
+    overflow-y: auto;
+
+    .menu-item{
+        width: 100%;
+        padding: 15px 25px;
+        @include flexbox(row,start);
+        cursor: pointer;
+        &.active{
+            background-color: $bg-active;
+        }
+        .menu-item-image-container{
+            width: 65px;
+            height: 65px;
+
+            img{
+                max-width: 100%;
+            }
+            margin-right: 15px;
+        }
+
+        .menu-item-info{
+            @include flexbox(column, center,start); 
+            color :$text-primary; 
+            text-align: start;
+            .name{
+                font-size: $fs-primary;
+            }
+            .artist{
+                font-size: $fs-secondary;
+            }
+        }
+    }
+
+}

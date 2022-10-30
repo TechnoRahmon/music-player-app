@@ -1,0 +1,18 @@
+
+.aside{
+    @import 'AsideMenuItems.scss';
+    .mobileMenu{
+        display: none;
+        @include media(sm){
+            display:flex;
+        }
+    }
+    .desktopMenu{
+        @include flexbox(column,start);
+        @include boxShadow();
+        @include media(sm){
+            display: none;
+        }
+    }
+
+}

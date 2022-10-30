@@ -1,16 +1,31 @@
-import React from 'react'
+import React ,{useContext} from 'react'
+import AsideMenuItem from '../components/Aside/AsideMenuItem';
+import { IAudioMenuItem } from '../types/IAudioItem';
+import {AudioContext}  from '../context/index'
 
-export default function Aside() {
+type AsideProps={
+  setCurrentActiveItem:(id:string)=>void;
+}
+export default function Aside({
+  setCurrentActiveItem
+}:AsideProps) {
+  const {audioItems} = useContext(AudioContext);
+
+  const MenuItems: Array<IAudioMenuItem> = audioItems;
+
   return (
     <div className='aside '>
-      <ul className='menuItems desktopMenu'>
-        <li>item 1</li>
-        <li>item 2</li>
+      <div className='menuItems desktopMenu'>
+        {MenuItems.length ? MenuItems.map((item: IAudioMenuItem) => {
+          return <AsideMenuItem item={item} />
+        }) : ''}
+      </div>
 
-        <li>item 3</li>
-        <li>item 4</li>
-
-      </ul>
+      <div className='menuItems mobileMenu'>
+        {MenuItems.length ? MenuItems.map((item: IAudioMenuItem) => {
+          return <AsideMenuItem item={item} />
+        }) : ''}
+      </div>
     </div>
   )
 }

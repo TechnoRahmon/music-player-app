@@ -1,21 +1,23 @@
 // break points for responsivness
 
 $primary: #5465ff;
-$secondary: rgb(224, 76, 8);
-$danger: #bf360c;
 
-$text-primary: #fff;
-$text-dark: rgb(224, 76, 8);
+
+$text-primary: #656667;
+$text-dark: #363636;
 
 $primary-hover: rgb(224, 76, 8);
 
-$bg-light: #eceff1;
-$bg-dark: #181829;
-$bg-color: #262636;
+$bg-active:#95BAEB;
+
+$fs-primary :18px;
+$fs-secondary :13px;
 
 $br-primary: 14px;
 $br-secondary: 8px;
 
+
+/* responsive */
 $breakpoints: (
   xs: 320px,
   sm: 800px,
@@ -31,6 +33,7 @@ $breakpoints: (
     }
   }
 }
+/* **************************/
 
 @mixin flexbox($direction: row, $justify: center, $content: center) {
     display: flex;
