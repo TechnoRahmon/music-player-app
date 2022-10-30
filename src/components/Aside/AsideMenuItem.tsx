@@ -10,15 +10,19 @@ export default function AsideMenuItem({
 }: AsideMenuItemProps) {
 
     const { artist, cover, name, active, id } = item;
-    
+
     // active className
     const isActive = active ? 'active' : '';
     // set active item from context
-    const { setActiveItem } = useContext(AudioContext);
-    
+    const { setActiveItem, showMobileAside, isAsideShown } = useContext(AudioContext);
+
     // on menu item click 
     const onMenuItemClick = () => {
         setActiveItem(id);
+        // check if mobile Aside is shown
+        // then toggle it
+        if (isAsideShown)
+            showMobileAside();
     }
 
     return (

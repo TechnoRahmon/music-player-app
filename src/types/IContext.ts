@@ -7,4 +7,6 @@ export type TodoContextType = {
     currentActiveItem:IAudioItem | any;
     goNext:()=>void;
     goPrev:()=>void;
+    isAsideShown:boolean;
+    showMobileAside:()=>void;
   };

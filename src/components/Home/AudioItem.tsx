@@ -11,70 +11,75 @@ export default function AudioItem({
     goPrev,
     item
 }: AudioItemProps) {
-    const { artist, cover, name, active, id, audio } = item;
-    //const audioObj = new Audio(audio);
+    const { artist, cover, name, id, audio } = item;
     const [audioObj, setAudioObj] = useState<typeof Audio | any>(new Audio(audio));
     const [Play, setPlay] = useState<boolean>(false);
     const [CanPlay, setCanPlay] = useState<boolean>(false);
     const [duration, setDuration] = useState<number>(0);
     const [currentTime, setCurrentTime] = useState<number>(0);
-    const [rangeValue, setRangeValue] = useState<number>(0);
 
     useEffect(() => {
-        //audioObj.play();
-        //setAudioObj(new Audio(audio))
+        // if item id is changed then update the audio object src
         audioObj.src = audio;
 
     }, [id])
-
+    // on can audio object play handler
     const oncanplay = () => {
         try {
+            // set canPlay to true
             setCanPlay(true);
+            // set Play to true
             setPlay(true);
-            audioObj.play(onPlayAudio);
+            // play the audio 
+            audioObj.play();
+            // update the duration state
             setDuration(audioObj.duration);
-            //setCurrentTime(audioObj.currentTime) 
         } catch (error) {
+            // if there is an error 
             setCanPlay(false);
             setPlay(false)
             console.log(error)
         }
     }
-
+    // on audio play handler
     const onPlayAudio = (e: any) => {
+        // define the timer
         let tickInterval: any = setInterval(() => { tick(); }, 250);
+        // timer callback
         const tick = () => {
+            // if timer exisits then update the currentTime value
             if (tickInterval) {
                 setCurrentTime(audioObj.currentTime);
             }
         }
+        // get if the audio object is paused 
         const paused = e.target.paused;
+        // if paused then clear the timer intreval
         if (paused) {
             clearInterval(tickInterval);
             tickInterval = null;
         }
     }
+    /*********************** */
+
+    /* on range input change  */
     const onRangeValueChange = (e: any) => {
+        // get entrie value
         let value = e.target.value;
-        console.log(value)
+        // update the audio current time
         audioObj.currentTime = Number(value) / 100 * duration;
     }
-
+    /************************** */
+    // check if the  audio object src changed then subscribe audio events
     useEffect(() => {
+        // canplay event
         audioObj.addEventListener('canplay', oncanplay);
+        // play event
         audioObj.addEventListener('play', onPlayAudio);
 
     }, [audioObj.src])
 
-
-
-
-
-
-
-    useEffect(() => {
-        setCurrentTime(audioObj.currentTime);
-    }, [audioObj.currentTime])
+    /* on toogle play */
     const togglePlay = () => {
         setPlay((state: boolean) => {
             state ? audioObj.pause() : audioObj.play(onPlayAudio);
@@ -82,7 +87,9 @@ export default function AudioItem({
         });
 
     }
+    /********************** */
 
+    /* formatTime */
     const formatTime = (seconds: number) => {
         const m = Math.floor(seconds % 3600 / 60).toString().padStart(2, '0'),
             s = Math.floor(seconds % 60).toString().padStart(2, '0');
@@ -90,6 +97,7 @@ export default function AudioItem({
 
         return `${m}:${s}`;
     }
+    /*********************** */
 
     return (
         // begain :: audio item 
@@ -112,11 +120,6 @@ export default function AudioItem({
             <h2 className='auio-title'>Player</h2>
             {/* end  ::  audio title  */}
 
-            {/* begain ::  audio title  */}
-            {/* <audio controls>
-                <source src={Audio}></source>
-            </audio> */}
-            {/* end  ::  audio title  */}
 
             {/* begain ::  audio progress-bar section  */}
             {!CanPlay ? 'Loading ... ' :
@@ -128,7 +131,8 @@ export default function AudioItem({
             }
 
             {/* end  ::  audio progress-bar section   */}
-
+            
+            {/* begain  ::  audio tool bar section   */}
             <div className='tool-bar'>
                 <div className='prev'>
                     <i className="fa-solid fa-angle-left" onClick={goPrev}></i>
@@ -141,6 +145,7 @@ export default function AudioItem({
                     <i className="fa-solid fa-angle-right" onClick={goNext}></i>
                 </div>
             </div>
+            {/* end  ::  audio tool bar section   */}
         </div>
         // end :: audio item 
     )

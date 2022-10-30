@@ -1,4 +1,5 @@
 // break points for responsivness
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap');
 
 $primary: #5465ff;
 
@@ -16,6 +17,7 @@ $br-primary: 70px;
 $br-secondary: 8px;
 $br-circle:50px;
 
+$font-family: 'Lato', sans-serif;
 /* responsive */
 $breakpoints: (
   xs: 320px,

@@ -13,5 +13,10 @@
 body{
    .App{
     @include flexbox(row,start,start);
+    @include media(sm){
+        @include flexbox(column);
+    }
    }
+
+   font-family: $font-family;
 }

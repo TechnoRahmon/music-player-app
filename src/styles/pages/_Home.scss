@@ -1,7 +1,27 @@
 .home{
     flex:1;
     height: 100%;
+    .mobile-list-icon{
+        display: none;
+    }
+    @include media(sm){
+        width: 100%;
+        .mobile-list-icon{
+            display: block;
+            margin:  30px auto 10px 30px ;
+        i{
+            font-size: $fs-primary *1.2;
+        }
+        }
+    }
+
     .item-container{
+
+        .home-title-container{
+            height: 100vh;
+            @include flexbox(column);
+
+        }
         @include flexbox();
 
         .audio-item{

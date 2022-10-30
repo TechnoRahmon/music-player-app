@@ -12,7 +12,9 @@ const contextDefaultValues: TodoContextType = {
   setActiveItem: () => { },
   currentActiveItem: getCurrentActiveItem(),
   goNext: () => { },
-  goPrev: () => { }
+  goPrev: () => { },
+  isAsideShown:false ,
+  showMobileAside : ()=>{}
 };
 
 export const AudioContext = createContext<TodoContextType>(
@@ -28,6 +30,9 @@ const AudioProvider = ({ children }: AudioProviderProps) => {
 
   // current active item state
   const [currentActiveItem, setCurrentActiveItem] = useState<IAudioItem | any>(contextDefaultValues.currentActiveItem)
+
+  // Aside show state in mobile size 
+  const [isAsideShown , setisAsideShown] = useState<boolean>(contextDefaultValues.isAsideShown);
 
   // set the active item handler
   const setActiveItem = (id: string) => {
@@ -65,6 +70,11 @@ const AudioProvider = ({ children }: AudioProviderProps) => {
       setActiveItem(audioItems[audioItems.length - 1].id);
   }
   /************************** */
+  // toggle the mobile aside
+  const showMobileAside= ()=>{
+    setisAsideShown(state=>!state);
+  }
+/************************* */
   return (
     <AudioContext.Provider
       value={{
@@ -72,7 +82,9 @@ const AudioProvider = ({ children }: AudioProviderProps) => {
         currentActiveItem,
         setActiveItem,
         goNext,
-        goPrev
+        goPrev,
+        isAsideShown,
+        showMobileAside
       }}
     >
       {children}
