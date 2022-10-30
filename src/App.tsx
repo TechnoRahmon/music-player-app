@@ -1,6 +1,6 @@
 
 import React from 'react';
-import AudioProvider  from './context/index'
+import AudioProvider from './context/index'
 import Aside from './layout/Aside';
 import Home from './pages/Home';
 import './styles/main.scss';

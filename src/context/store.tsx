@@ -3,10 +3,16 @@ import { IAudioItem } from "../types/IAudioItem";
 import { TodoContextType } from "../types/IContext";
 import chillHop from '../data/data'
 
+// get the current active item
+const getCurrentActiveItem = () => chillHop().find((item: IAudioItem) => item.active);
+
 const contextDefaultValues: TodoContextType = {
+
   audioItems: chillHop(),
   setActiveItem: () => { },
-  getCurrentActiveItem: () => { }
+  currentActiveItem: getCurrentActiveItem(),
+  goNext: () => { },
+  goPrev: () => { }
 };
 
 export const AudioContext = createContext<TodoContextType>(
@@ -20,15 +26,18 @@ const AudioProvider = ({ children }: AudioProviderProps) => {
   // audio items state array 
   const [audioItems, setAudioItems] = useState<Array<IAudioItem | any>>(contextDefaultValues.audioItems);
 
-  // get the current active item
-  const getCurrentActiveItem = () => audioItems.find((item: IAudioItem) => item.active);
+  // current active item state
+  const [currentActiveItem, setCurrentActiveItem] = useState<IAudioItem | any>(contextDefaultValues.currentActiveItem)
 
   // set the active item handler
   const setActiveItem = (id: string) => {
     // deactivate all items except the current active item
     let newAudioItems = audioItems.map((item: IAudioItem) => {
-      if (item.id == id)
-        return { ...item, active: true }
+      if (item.id == id) {
+        let activeItem: IAudioItem | any = { ...item, active: true };
+        setCurrentActiveItem(activeItem);
+        return activeItem
+      }
       else
         return { ...item, active: false }
     });
@@ -36,12 +45,34 @@ const AudioProvider = ({ children }: AudioProviderProps) => {
   };
   /************************ */
 
+  // navigate to next audio item
+  const goNext = () => {
+    debugger
+    const index = audioItems.findIndex((item: IAudioItem) => item.active);
+    if (index >= 0 && index < (audioItems.length - 1)) {
+      setActiveItem(audioItems[index + 1].id);
+    } else
+      setActiveItem(audioItems[0].id);
+  }
+  /************************** */
+  // navigate to prev audio item
+  const goPrev = () => {
+    debugger
+    const index = audioItems.findIndex((item: IAudioItem) => item.active);
+    if (index > 0 && index <= (audioItems.length - 1)) {
+      setActiveItem(audioItems[index - 1].id);
+    } else
+      setActiveItem(audioItems[audioItems.length - 1].id);
+  }
+  /************************** */
   return (
     <AudioContext.Provider
       value={{
         audioItems,
-        getCurrentActiveItem,
-        setActiveItem
+        currentActiveItem,
+        setActiveItem,
+        goNext,
+        goPrev
       }}
     >
       {children}

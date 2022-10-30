@@ -16,14 +16,16 @@ export default function Aside({
   return (
     <div className='aside '>
       <div className='menuItems desktopMenu'>
+      <h3 className='aside-title'>Library</h3>
         {MenuItems.length ? MenuItems.map((item: IAudioMenuItem) => {
-          return <AsideMenuItem item={item} />
+          return <AsideMenuItem item={item} key={item.id}/>
         }) : ''}
       </div>
 
       <div className='menuItems mobileMenu'>
+        <h3 className='aside-title'>Library</h3>
         {MenuItems.length ? MenuItems.map((item: IAudioMenuItem) => {
-          return <AsideMenuItem item={item} />
+          return <AsideMenuItem item={item} key={item.id} />
         }) : ''}
       </div>
     </div>

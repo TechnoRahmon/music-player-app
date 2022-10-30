@@ -1,4 +1,64 @@
 .home{
     flex:1;
     height: 100%;
+    .item-container{
+        @include flexbox();
+
+        .audio-item{
+            width: 100%;
+            @include flexbox(column);
+            .item-image-container{
+                width: 300px;
+                border-radius: $br-primary;
+                margin-bottom: 45px;
+                margin-top: 50px;
+                overflow: hidden;
+                img{
+                    max-width: 100%;
+
+                }
+            }
+
+            .artist{
+                text-align: center;
+                font-size: $fs-primary;
+                color:$text-primary;
+            }
+
+            .auio-title{
+               width: 100%; 
+               text-align: center;
+               margin-top: 60px;
+            }
+            .progress-bar-container{
+                @include flexbox(row); 
+                width: 70%;
+                margin: 35px auto;
+                .reangeBar{
+                    margin: 0px 5px;
+                    flex:1;
+                    cursor: pointer;
+                }
+            }
+            .tool-bar{
+                @include flexbox(row,space-around); 
+                width: 50%;
+                .prev,.play,.pause,.next{
+                    cursor: pointer;
+                }
+                .play,.pause{
+                    font-size: $fs-primary*1.35;
+                }
+                .prev,.next{
+                    border-radius:$br-circle;
+                    padding:5px 10px;
+                    transition:  all 0.4s;
+                    &:hover{
+                        background-color: $bg-hover;
+                        
+                    }
+                }
+            }
+        }
+    }
 }
