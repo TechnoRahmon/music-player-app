@@ -7,13 +7,10 @@ import './styles/main.scss';
 
 
 function App() {
-  const setCurrentActiveItem = (id: string) => {
-
-  }
   return (
     <div className="App">
       <AudioProvider>
-        <Aside setCurrentActiveItem={setCurrentActiveItem} />
+        <Aside />
         <Home />
       </AudioProvider>
 
